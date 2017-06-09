@@ -25,7 +25,7 @@ SECRET_KEY = 'rlo($2!5s82$&-64mnwxaaq$5kplon3xaxy2ypmoz071+))e&w'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['0.0.0.0']
 
 
 # Application definition
