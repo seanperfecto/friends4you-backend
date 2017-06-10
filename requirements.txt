@@ -26,3 +26,4 @@ urllib3==1.21.1
 virtualenv==15.1.0
 whitenoise==3.3.0
 wrapt==1.10.10
+channels==1.1.3
