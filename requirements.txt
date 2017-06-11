@@ -39,3 +39,4 @@ virtualenv==15.1.0
 whitenoise==3.3.0
 wrapt==1.10.10
 zope.interface==4.4.1
+django-friendship==1.5.0
