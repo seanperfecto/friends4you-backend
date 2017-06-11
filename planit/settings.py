@@ -28,7 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = ['0.0.0.0',
                  'enigmatic-sierra-62355.herokuapp.com',
                  '127.0.0.1',
-                 'friends4you.herokuapp.com',]
+                 'friends4you.herokuapp.com',
+                 'flex-aa.herokuapp.com']
 
 
 # Application definition
