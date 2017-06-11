@@ -1,3 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
+class Connection (models.Model):
+    users = models.ManyToManyField(User)
+
+    def __str__(self):
+        return str(self.pk)

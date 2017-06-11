@@ -19,7 +19,6 @@ class SignUp(APIView):
         email = request.data["email"]
         password = request.data["password"]
         user = User(username=username, email=email, password=password)
-        pdb.set_trace()
         try:
             user.full_clean()
         except ValidationError as e:
