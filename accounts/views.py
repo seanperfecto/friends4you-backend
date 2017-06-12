@@ -13,14 +13,8 @@ from rest_framework.authentication import SessionAuthentication as OriginalSessi
 from rest_framework.permissions import AllowAny
 from rest_framework.authentication import BasicAuthentication
 
-class SessionAuthentication(OriginalSessionAuthentication):
-    def enforce_csrf(self, request):
-        return
-
 # Create your views here.
 class SignUp(APIView):
-    permission_classes = (AllowAny)
-    authentication_classes = (BasicAuthentication)
 
     def post(self, request, format='json'):
         username = request.data["username"]
