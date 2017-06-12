@@ -9,9 +9,10 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.password_validation import validate_password
 from accounts.serializers import UserSerializer
 from django.views.decorators.csrf import csrf_exempt
+from braces.views import CsrfExemptMixin
 
 # Create your views here.
-class SignUp(APIView):
+class SignUp(CsrfExemptMixin, APIView):
     def post(self, request, format='json'):
         username = request.data["username"]
         email = request.data["email"]
@@ -38,7 +39,6 @@ class SignUp(APIView):
 
 class Session(APIView):
     def post(self, request, format='json'):
-        pdb.set_trace()
         username = request.data["username"]
         password = request.data["password"]
         user = authenticate(request, username=username, password=password)
