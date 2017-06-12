@@ -20,6 +20,7 @@ def ws_add(message):
         if connection.users.count() == 1:
             connection.users.add(message.user.pk)
             Group(str(connection.pk)).add(message.reply_channel)
+            message.reply_channel.send({'ready': True})
             return
 
     #if no open chats
@@ -36,6 +37,7 @@ def ws_message(message):
     #find channel that you're logged in on
     connection = user.connection_set.first()
     data = json.loads(message['text'])
+    data['username'] = message.user.username
     Group(str(connection.pk)).send({
         "text": json.dumps(data)
     })
