@@ -11,6 +11,7 @@ from accounts.serializers import UserSerializer
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.authentication import SessionAuthentication as OriginalSessionAuthentication
 from rest_framework.permissions import AllowAny
+from rest_framework.authentication import BasicAuthentication
 
 class SessionAuthentication(OriginalSessionAuthentication):
     def enforce_csrf(self, request):
@@ -19,9 +20,8 @@ class SessionAuthentication(OriginalSessionAuthentication):
 # Create your views here.
 class SignUp(APIView):
     permission_classes = (AllowAny)
-    authentication_classes = ()
-    
-    @csrf_exempt
+    authentication_classes = (BasicAuthentication)
+
     def post(self, request, format='json'):
         username = request.data["username"]
         email = request.data["email"]
