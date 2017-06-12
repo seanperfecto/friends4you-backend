@@ -9,10 +9,19 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.password_validation import validate_password
 from accounts.serializers import UserSerializer
 from django.views.decorators.csrf import csrf_exempt
-from braces.views import CsrfExemptMixin
+from rest_framework.authentication import SessionAuthentication as OriginalSessionAuthentication
+from rest_framework.permissions import AllowAny
+
+class SessionAuthentication(OriginalSessionAuthentication):
+    def enforce_csrf(self, request):
+        return
 
 # Create your views here.
-class SignUp(CsrfExemptMixin, APIView):
+class SignUp(APIView):
+    permission_classes = (AllowAny)
+    authentication_classes = ()
+    
+    @csrf_exempt
     def post(self, request, format='json'):
         username = request.data["username"]
         email = request.data["email"]
