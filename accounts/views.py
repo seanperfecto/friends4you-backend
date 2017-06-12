@@ -11,9 +11,9 @@ from accounts.serializers import UserSerializer
 from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
-
+@csrf_exempt
 class SignUp(APIView):
-
+    @csrf_exempt
     def post(self, request, format='json'):
         username = request.data["username"]
         email = request.data["email"]
@@ -38,9 +38,11 @@ class SignUp(APIView):
         serializer = UserSerializer(user)
         return JsonResponse(serializer.data, safe=False)
 
+@csrf_exempt
 class Session(APIView):
-
+    @csrf_exempt
     def post(self, request, format='json'):
+        pdb.set_trace()
         username = request.data["username"]
         password = request.data["password"]
         user = authenticate(request, username=username, password=password)
@@ -51,7 +53,7 @@ class Session(APIView):
         else:
             return JsonResponse({'errors': ["Invalid login credentials"]}, status=422)
 
-
+    @csrf_exempt
     def delete(self, request, format='json'):
         logout(request)
         return JsonResponse({'errors': 'none'})
