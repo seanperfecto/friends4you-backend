@@ -57,10 +57,6 @@ class Session(APIView):
         return JsonResponse({'errors': 'none'})
 
     def get(self, request, format='json'):
-        username = "sean"
-        password = "basketball8"
-        email = "example321@ucsc.edu"
-        user = authenticate(request, username=username, password=password)
-        login(request, user)
-        serializer = UserSerializer(user)
-        return JsonResponse(serializer.data, safe=False)
+        #retrieve session key
+        sk = request.session.session_key
+        return JsonResponse({'session_key': sk})
