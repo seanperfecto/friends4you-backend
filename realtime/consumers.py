@@ -20,7 +20,7 @@ def ws_add(message):
         if connection.users.count() == 1:
             connection.users.add(message.user.pk)
             Group(str(connection.pk)).add(message.reply_channel)
-            message.reply_channel.send(json.dumps({'type': 'ready'}))
+            message.reply_channel.send({"ready": True})
             return
 
     #if no open chats
