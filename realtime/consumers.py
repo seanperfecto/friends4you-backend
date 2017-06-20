@@ -20,7 +20,7 @@ def ws_add(message):
         if connection.users.count() == 1:
             connection.users.add(message.user.pk)
             Group(str(connection.pk)).add(message.reply_channel)
-            message.reply_channel.send({"ready": True})
+            message.reply_channel.send({"text": json.dumps({'ready': 'true'})})
             return
 
     #if no open chats
@@ -47,11 +47,9 @@ def ws_message(message):
 def ws_disconnect(message):
     connection_id = message.user.connection_set.first().pk
     connection = Connection.objects.get(pk=connection_id)
-    #TODO : handle logged in user in two separate browsers issue with deleting from connection
-    #when still in group
     connection.users.remove(message.user)
     Group(str(connection.pk)).discard(message.reply_channel)
     if connection.users.count() == 0:
         connection.delete()
     else:
-        Group(str(connection.pk)).send({"text": json.dumps({'disconnected': 'true'})})
+        Group(str(connection.pk)).send({"text": json.dumps({'type': 'disconnected'})})
