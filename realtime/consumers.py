@@ -10,21 +10,22 @@ import json
 @channel_session_user_from_http
 def ws_add(message):
     # Accept the connection
-    #TODO ADD USER AUTHENTIXATION HERE
     # if request.user.is_authenticated:
     message.reply_channel.send({"accept": True})
+    chat_category = message.content['category'].strip("/")
+    #TODO GET CATEGORY FROM QUERY STRING
     #get all chatrooms
     connections = Connection.objects.all()
     #see if there are any chatrooms that are open (only 1 user)
     for connection in connections:
-        if connection.users.count() == 1:
+        if connection.cateogry == chat_category and connection.users.count() == 1:
             connection.users.add(message.user.pk)
             Group(str(connection.pk)).add(message.reply_channel)
             message.reply_channel.send({"text": json.dumps({'ready': 'true'})})
             return
 
     #if no open chats
-    connection = Connection()
+    connection = Connection(category=chat_category)
     connection.save()
     connection.users.add(message.user.pk)
     Group(str(connection.pk)).add(message.reply_channel)
